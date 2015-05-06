@@ -21,7 +21,7 @@ import java.util.Scanner;
 public class ParagraphSplitter{
 
 	public static void main(String args[]){
-		Scanner scanner = null, userInput = null;		
+		Scanner scanner = null, userInput = new Scanner(System.in);		
 		String filename = null, paragraph = null;
 		char yes;
 		boolean exit = false;
@@ -31,21 +31,20 @@ public class ParagraphSplitter{
 		System.out.println("***************************************************************************\n");
 
 		while(!exit){
-			try{
-				userInput = new Scanner(System.in);
+			try{				
 				System.out.print("Please enter a qualified filename for the input 1-liner e.g.[input.txt]: ");
 				filename = userInput.nextLine();
-
+				
 				scanner = new Scanner(new File(filename));
-				paragraph = scanner.useDelimiter("\\Z").next();	
-	
+				paragraph = scanner.useDelimiter("\\Z").next();
+
 				System.out.println("\n[Split Paragraph]----------------------\n");
 				System.out.print(paragraph);
-				System.out.println("\n---------------------------------------\n");			
+				System.out.println("\n---------------------------------------\n");
 
 				System.out.print("Do you wish to continue? [Y/y]: ");
 				yes = userInput.nextLine().charAt(0);
-				exit = (yes == 'y' || yes == 'Y')? false : true;		
+				exit = (yes == 'y' || yes == 'Y')? false : true;
 			}
 			catch(FileNotFoundException fnfex){
 				System.out.println(fnfex);
@@ -59,13 +58,10 @@ public class ParagraphSplitter{
 				yes = userInput.nextLine().charAt(0);
 				exit = (yes == 'y' || yes == 'Y')? false : true;
 			}
-		
-			if(scanner != null){				
+
+			if(scanner != null){
 				scanner.close();
-			}
-			if(userInput != null){
-				userInput.close();
-			}
+			}			
 		}
 		
 		System.out.println(":) bye. \n");
