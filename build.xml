@@ -93,33 +93,6 @@
  </target>
 
  <!--
-   Build the JavaDocs for this project
-  -->
- <!--<target name="docs" depends="init" description="Generate JavaDocs for this project" >
-  <delete dir="${dist}/docs"/>
-  <mkdir dir="${dist}/docs"/>
-  <mkdir dir="${dist}/docs/api"/>
-  <javadoc
-      destdir="${dist}/docs/api"
-      author="true"
-      version="true"
-      use="true"
-      windowtitle="Cloud Project">
-
-  <classpath refid="classpath"/>
-
-  <!Define the package set to include: all source files except unit tests 
-  <packageset dir="src" defaultexcludes="yes">
-   <include name="**/**"/>
-   <exclude name="**/*Test*" />
-  </packageset>
-
-  <bottom><![CDATA[<i>Copyright &#169; 2015 Sehlabaka Qhobosheane. All Rights Reserved.</i>]]></bottom>
-  <group title="Cloud" packages="com.Amazon.*"/>
-  </javadoc>
- </target>-->
-
- <!--
    Execute Unit Tests
   -->  
  <target name="test" depends="compile" description="Run unit tests">
