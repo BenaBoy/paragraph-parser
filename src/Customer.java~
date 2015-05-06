@@ -1,0 +1,83 @@
+/* $Id: Customer.java 2015-01-16 12:44:08Z qhobosheanesb $
+ * Copyright (C) 2015 Sehlabaka Qhobosheane <qhobosheanesb@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+import java.util.*;
+
+public class Customer extends InstanceOwner{	
+	private int dominantHost;
+	private int dominantDatacenter;
+	private int clusteringFactor;
+	private int datacenterClusteringFactor;
+	private HashMap<Integer,Integer> hostClusteringMap;
+	
+	public Customer(int id){super(id); hostClusteringMap = new HashMap<Integer,Integer>();}
+	public void setDominantHost(int host){dominantHost = host;}
+	public void setDominantDatacenter(int dc){dominantDatacenter = dc;}
+	public void setClusteringFactor(int factor){clusteringFactor = factor;}
+	public void setDatacenterClusteringFactor(int factor){datacenterClusteringFactor = factor;}
+	public boolean putIntoHostClusteringMap(int k, int v){return hostClusteringMap.put(k,v);}
+	public boolean clearHostClusteringMap(){return hostClusteringMap.clear();}
+	public int getDominantHost(){return dominantHost;}
+	public int getDominantDatacenter(){return dominantDatacenter;}
+	public int getClusteringFactor(){return clusteringFactor;}
+	public int getDatacenterClusteringFactor(){return datacenterClusteringFactor;}
+	public HashMap<Integer,Integer> getHostClusteringMap(){return hostClusteringMap;}
+	public boolean addInstance(Instance vm){		
+		if(vm.getCustomerID() == getID()){
+			if(instances.add(vm)){				
+				return true;
+			}
+		}		
+		return false;
+	}
+
+	/*
+	 * @Override the deleteInstance(int id).
+	 */
+	public boolean deleteInstance(int id){
+		if(instances.size() > 0){
+			for(Instance i : instances){
+				if(i.getID() == id){
+					if(instances.remove(i)){					
+						return true;
+					}
+				}		
+			}
+		}
+		return false;		
+	}
+	
+	/*
+	 * @Override the equals(Object o) method of java.util.Set so that 2 customers can be correctly compared.
+	 */
+	public boolean equals(Object o){
+		if(o == this)
+			return true;
+		if(!(o instanceof Customer))
+			return false;
+		Customer cst = (Customer)o;
+		return(cst.getID() == getID());
+	}
+	
+	/*
+	 * @override hasCode()
+	 */
+	public int hashCode(){		
+		return this.getID();
+	}
+}
